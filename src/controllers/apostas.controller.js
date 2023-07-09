@@ -8,7 +8,6 @@ const getAllApostas = async (req, res) => {
 
 const getCount = async (_req, res) => {
     const quantity = await getCountServer();
-    console.log(quantity);
     res.status(200).json(quantity);
 }
 

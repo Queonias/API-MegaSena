@@ -1,7 +1,7 @@
 const Apostas = require('../models/aposta.model');
 const Tabela3 = require('../models/newApostas.model');
-const convertData = require('../helpers/convertDate');
-const transformValuesIntoArray = require('../helpers/transformValuesIntoArray');
+const convertData = require('../utils/helpers/convertDate');
+const transformValuesIntoArray = require('../utils/helpers/transformValuesIntoArray');
 
 const salveApostasArry = async () => {
     const apostasSalvas = await Apostas.find({});

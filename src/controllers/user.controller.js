@@ -1,51 +1,31 @@
-const { signup } = require('../services/user.service');
-const passport = require('../services/passport');
+const { signup, login } = require('../services/user.service');
+const { statusCode: { CREATED, OK } } = require('../utils/helpers');
 
 
 const signupService = async (req, res) => {
-        try {
-            const newUser = await signup(req.body);
-            res.status(201).send(newUser);
-        } catch (err) {
-            res.status(Number(err.stack)).json({ error: err.message })
-        }
+  try {
+    const newUser = await signup(req.body);
+    return res.status(CREATED).send(newUser);
+  } catch (err) {
+    return res.status(Number(err.stack)).json({ error: err.message })
+  }
 };
 
-const loginService = async  (req, res, next) => {
-    passport.authenticate("local", (err, user, _info) => {
-      if (err) {
-        // Erro de autenticação
-        return next(err);
-      }
-      if (!user) {
-        // Autenticação falhou, mensagem de erro personalizada
-        return res.status(401).json({ error: "Invalid username or password" });
-      }
-      // Autenticação bem-sucedida
-      req.login(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        // Redirecionar ou retornar uma resposta de sucesso
-        return res.json({ message: "Login successful" });
-      });
-    })(req, res, next);
+const loginService = async  (req, res) => {
+  try {
+    const user = await login(req.body);
+    return res.status(OK).send(user);
+  } catch (err) {
+    return res.status(Number(err.stack)).json({ error: err.message })
+  }
+};
+
+  const logoutService = (_req, res) => {
+    res.status(OK).json({ message: 'You have been logged out'});
   };
 
-  const logoutService = (req, res) => {
-    req.logout((err) => {
-        if (err) {
-          return res.status(500).json({ error: 'Logout failed' });
-        }
-        res.status(200).json({ message: 'Logged out' });
-      });
-  };
-
-  const me = (req, res) => {
-    if (!req.user)
-      return res.status(403).json({ error: "login to get the info" });
-  
-    return res.status(200).json({ user: req.user });
+  const me = (_req, res) => {
+    return res.status(OK).send('You have been logged in');
   };
   
 
