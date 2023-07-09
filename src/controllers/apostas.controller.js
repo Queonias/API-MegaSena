@@ -1,6 +1,4 @@
-// const Apostas = require('../models/aposta.model');
-// const Tabela3 = require('../models/newApostas.model');
-const { getAll } = require('../services/apostasSalve.service');
+const { getAll, getCountServer } = require('../services/apostasSalve.service');
 
 const getAllApostas = async (req, res) => {
     const skipAmount = req.query.skip || 0; 
@@ -8,6 +6,13 @@ const getAllApostas = async (req, res) => {
     res.status(200).json(apostas);
 }
 
+const getCount = async (_req, res) => {
+    const quantity = await getCountServer();
+    console.log(quantity);
+    res.status(200).json(quantity);
+}
+
 module.exports = {
     getAllApostas,
+    getCount
 }

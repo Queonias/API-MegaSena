@@ -23,15 +23,29 @@ const salveApostasArry = async () => {
 const getAll = async (skipAmount) => {
     try {
         // consulta com skipAmount utilizando o MongoDB
-        const resultados = await Tabela3.find({}, { __v: 0 }).skip(parseInt(skipAmount)).exec();
+        const resultados = await Tabela3
+            .find({}, { __v: 0 })
+            .sort({ Conc: -1 })
+            .skip(parseInt(skipAmount))
+            .limit(25).exec();
         return resultados;
       } catch (error) {
         console.error(error);
       }
     };
 
+const getCountServer = async () => {
+    try {
+        const resultados = await Tabela3.find({}).countDocuments({});
+        return resultados;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = {
     salveApostasArry,
     getAll,
+    getCountServer,
 };
