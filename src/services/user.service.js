@@ -11,7 +11,8 @@ const signup = async ({ name, email, password }) => {
         const newUser = new User({ name, email, password });
         newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
-        return { message: 'You are registered' };
+        const token = createToken({ name, email });
+        return { message: 'You are registered', token: token };
     }
 };
 
@@ -19,16 +20,16 @@ const login = async ({ email, password }) => {
     const user = await User.findOne({ email: email });
     
     if (!user) {
-      throw new HttpsException(NOT_FOUND, 'Invalid username or password');
+      throw new HttpsException(NOT_FOUND, 'Nome de usuário ou senha inválidos');
     } else {
       const passwordMatch = await user.matchPassword(password);
       if (!passwordMatch) {
-        throw new HttpsException(UNAUTHORIZED, 'Invalid username or password');
+        throw new HttpsException(UNAUTHORIZED, 'Nome de usuário ou senha inválidos');
       }
 
       const { name } = user;
       const token = createToken({ name, email });
-      return { message: 'Login successful', token: token };
+      return { message: 'Login bem-sucedido', token: token };
     }
   };
   
