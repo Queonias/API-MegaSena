@@ -15,7 +15,7 @@ app.use(express.json()); // Middleware para análise do corpo da solicitação c
 app.use(morgan('dev')); // Middleware para registro de solicitações no console em modo de desenvolvimento
 
 app.use('/', (req, res) => {
-    res.statusCode(200).json('hello world');
+    res.status(200).json('hello world');
 });
 app.use('/apostas', apostasRouter); // Define a rota base '/apostas' usando o roteador de apostas
 app.use('/user', userRouter); // Define a rota base '/user' usando o roteador de usuário
