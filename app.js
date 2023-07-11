@@ -14,12 +14,6 @@ app.use(cors()); // Middleware para lidar com CORS (Cross-Origin Resource Sharin
 app.use(express.json()); // Middleware para análise do corpo da solicitação como JSON
 app.use(morgan('dev')); // Middleware para registro de solicitações no console em modo de desenvolvimento
 
-app.use('/', (req, res) => {
-    res.status(200).json('hello world');
-});
-app.use('/oi', (req, res) => {
-    res.status(200).json('ola');
-});
 app.use('/apostas', apostasRouter); // Define a rota base '/apostas' usando o roteador de apostas
 app.use('/user', userRouter); // Define a rota base '/user' usando o roteador de usuário
 
