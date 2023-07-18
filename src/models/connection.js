@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { MONGODB_URI } = process.env;
-// const MONGODB_URI = `mongodb://${NOTES_APP_MONGODB_HOST}:27017/${NOTES_APP_MONGODB_DATABASE}`;
+// const MONGODB_URI_LOCAL = `mongodb://localhost:27017/Mega_Sena`;
 
 const connectToDatabase = async () => {
     try {
