@@ -69,8 +69,8 @@ const getDetailsServer = async (id) => {
 const getAllDetailsServer = async (limit) => {
   try {
     const resultados = await DetalhesMega.find()
-      .sort({ concurso: -1 })
-    //   .limit(limit)
+      .sort({ concurso: 1 })
+      .limit(limit)
       .exec();
     if (!resultados) {
       throw new HttpsException(NOT_FOUND, 'Nenhum resultado encontrado.');
