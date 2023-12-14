@@ -1,4 +1,4 @@
-const ValueInvalid = require('../errors/valuesInvalid');
+const ValueInvalid = require('../utils/errors/valuesInvalid');
 
 const validFields = (req, res, next) => {
     try {
@@ -18,6 +18,4 @@ const validFields = (req, res, next) => {
     }
 }
 
-module.exports = {
-    validFields
-}
+module.exports = validFields;
